@@ -4,6 +4,8 @@
  */
 package leibniz;
 
+import leibniz.loadIn.LoadUserInformations;
+import leibniz.user.UserInformations;
 /**
  *
  * @author EmilieGIT
@@ -14,12 +16,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //utiliser la classe loader
+
+        //recherche du repertoire principal
+        LoadUserInformations.setUserInformationsPatch();
+        //creation des clients dans la memoire
+        UserInformations [] custumer = LoadUserInformations.loadUsers();
         
-        //créer les utilisateurs avec la classe "user"
         
-        //manipuler les utilisateurs
         
-        //sauvegarder les users
     }
 }
