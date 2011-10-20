@@ -10,25 +10,25 @@ public class ScanningFolder
 {
     //récupération du path pour la recherche des fichiés
     //la méthode renvoie un tableau de string contenant les fichiée dans la classe intant
-    public static String[] scanningRepertoire (String path){
+    public static String[] scanningFolderPatch (String path){
     
     //recherche du repertoire
     File repertoire = new File(path);
     //lecture du repertoire
-    File scanFolder[] = repertoire.listFiles();
+    File jsonFolder[] = repertoire.listFiles();
     //creation de la liste des noms de fichier
-    String nameOfFiles[] = new String [scan.length];
+    String nameOfJsonFiles[] = new String [jsonFolder.length];
     
-        for(int i=0;i<scan.length;i++){
+        for(int i=0;i<jsonFolder.length;i++){
         //Inspecte le dossier ou fichier si il est bien et bien un file
-            if(scanFolder[i].isFile()){
+            if(jsonFolder[i].isFile()){
 
-                System.out.println("trouver:" + scan[i].getName());
-                nameOfFiles[i] =  path + "\\" + scan[i].getName();
-                nbrFile++;
+                System.out.println("trouver:" + jsonFolder[i].getName());
+                nameOfJsonFiles[i] =  path + "\\" + jsonFolder[i].getName();
                 
             }   
-        }   
+        } 
+        return nameOfJsonFiles;
     }
 }
 

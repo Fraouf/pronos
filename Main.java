@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import loadIn.LoadJsonFile;
 import saveIn.SaveJsonFile;
+import scanFolder.ScanningFolder;
 import user.Calculate;
 import user.User;
 
@@ -22,10 +23,10 @@ public class Main {
     public static void main (String[]args){
             
             try{
-                String [] clientFilesJson = scanningFolder.scanningFolderPatch(args[0]);
+                String [] clientFilesJson = ScanningFolder.scanningFolderPatch(args[0]);
                 
                 
-                for(int i=0;i<clientFilesJson;i++){
+                for(int i=0;i<clientFilesJson.length;i++){
                     
                     //Lecture des fichiers source .json donné par les arguments du main
                     JsonReader  file = new JsonReader( new FileReader(args[i]));

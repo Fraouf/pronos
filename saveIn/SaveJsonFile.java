@@ -15,24 +15,24 @@ import user.User;
  */
 public class SaveJsonFile {
     
-    public static void save(User customer) {
-    	
+    public static void save(User customer, String patchOfJsonFile) {
         
-	Gson gson = new Gson();
+         
+        Gson gson = new Gson();
  
-	// convert java object to JSON format,
-	// and returned as JSON formatted string
-	String json = gson.toJson(customer);
+        // convert java object to JSON format,
+        // and returned as JSON formatted string
+        String json = gson.toJson(customer);
  
-	try {
-		//write converted json data to a file named "file.json"
-		FileWriter writer = new FileWriter("src/extrant/test1.json");
-		writer.write(json);
-		writer.close();
+        try {
+            //write converted json data to a file named "file.json"
+            FileWriter writer = new FileWriter(patchOfJsonFile);
+            writer.write(json);
+            writer.close();
  
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
