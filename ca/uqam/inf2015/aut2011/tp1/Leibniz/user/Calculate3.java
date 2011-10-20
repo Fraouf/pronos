@@ -1,11 +1,12 @@
 package user;
 
-public class Calculate {
+public class Calculate3 {
 	
 	public static void calculateTotalPayment(User customer){
             
             int numberOfPayment = customer.getDuration()*customer.getPaymentFrequency();
-            Amortization amortization[] = new Amortization[numberOfPayment];;
+            Amortization amortization[] = new Amortization[numberOfPayment];
+            
             
             int periode = 0;
             double cumulativeTotalPayment = 0;
@@ -13,7 +14,7 @@ public class Calculate {
             double cumulativeCapitalPayment = 0;
 		
             
-            for( int j = 0; j < numberOfPayment; j++){
+            for( int i = 0; i < numberOfPayment; i++){
                 
                 Amortization amorti = new Amortization(); 
                 
@@ -23,11 +24,11 @@ public class Calculate {
                 amorti.setPeriode(periode);
                 
 		
-		if(j == 0){
-		    amorti.setCapitalBiggining(customer.getAmount());
+		if(i == 0){
+		    amorti.setCapitalBeggining(customer.getAmount());
 		}
                 else{
-                    amorti.setCapitalBiggining(amortization[j-1].getCapitalEnd());
+                    amorti.setCapitalBeggining(amortization[i-1].getCapitalEnd());
                 }
                 
                 // Calcule TotalPayment
@@ -38,35 +39,44 @@ public class Calculate {
 		double intRateCapSem = (Math.pow ((1 + (interestRates2 / customer.getFrequencyComposition())),(valeur2))) - 1 ;
 		double valeur3 = (1 - ( Math.pow ((1 + intRateCapSem), duration2))) / intRateCapSem;
                 
-		totalPayment = (customer.getAmount() / valeur3);
-                
+		totalPayment = customer.getAmount() / valeur3;
+                totalPayment = ArrondiDouble.AroundTwoDecimal(totalPayment);
                 
 		amorti.setTotalPayment(totalPayment);
                 customer.setTotalPayment(totalPayment);
                 cumulativeTotalPayment = cumulativeTotalPayment + totalPayment;
+                cumulativeTotalPayment = ArrondiDouble.AroundTwoDecimal(cumulativeTotalPayment);
                 amorti.setCumulativeTotalPayment(cumulativeTotalPayment);
                 
                 // Calcule interestPayment
                 double interestPayment;
                 
 		interestPayment = amorti.getCapitalBiggining() * intRateCapSem;
-                cumulativeInterestPayment = cumulativeInterestPayment + interestPayment;
-                amorti.setCumulativeInterestPayment(cumulativeInterestPayment);
+                interestPayment = ArrondiDouble.AroundTwoDecimal(interestPayment);
                 amorti.setInterestPayment(interestPayment);
+                interestPayment = ArrondiDouble.AroundTwoDecimal(interestPayment);
+                
+                cumulativeInterestPayment = cumulativeInterestPayment + interestPayment;
+                cumulativeInterestPayment = ArrondiDouble.AroundTwoDecimal(cumulativeInterestPayment);
+                amorti.setCumulativeInterestPayment(cumulativeInterestPayment);
+                
                 
                 // Calculer capitalPayment
                 double capitalPayment = totalPayment - interestPayment;
+                capitalPayment = ArrondiDouble.AroundTwoDecimal(capitalPayment);
                 amorti.setCapitalPayment(capitalPayment);  
                 
                 // Calculer capitalEnd
                 double temp = amorti.getCapitalBiggining() - capitalPayment;
+                temp = ArrondiDouble.AroundTwoDecimal(temp);
                 amorti.setCapitalEnd(temp);
                 
                 cumulativeCapitalPayment = cumulativeCapitalPayment + capitalPayment;
+                cumulativeCapitalPayment = ArrondiDouble.AroundTwoDecimal(cumulativeCapitalPayment);
                 amorti.setCumulativeCapitalPayment(cumulativeCapitalPayment);
                 
                 // Créer un objet Amotization
-                amortization[j] = amorti;
+                amortization[i] = amorti;
                 
             }
             customer.setAmortization(amortization);

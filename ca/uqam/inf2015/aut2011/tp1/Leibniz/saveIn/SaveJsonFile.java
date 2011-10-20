@@ -26,6 +26,7 @@ public class SaveJsonFile {
  
         try {
             //write converted json data to a file named "file.json"
+            System.out.println("writing Folder");
             FileWriter writer = new FileWriter(patchOfJsonFile);
             writer.write(json);
             writer.close();

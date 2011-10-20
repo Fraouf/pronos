@@ -11,7 +11,7 @@ package user;
 public class Amortization {
 
 	private int periode;
-	private double capitalBiggining;
+	private double capitalBeggining;
 	private double capitalEnd;
 	private double totalPayment;
 	private double interestPayment;
@@ -24,10 +24,10 @@ public class Amortization {
             
         }
         
-        public Amortization(int periode, double capitalBiggining, double capitalEnd, double totalPayment, double interestPayment, double capitalPayment, double cumulativeTotalPayment, double cumulativeInterestPayment, double cumulativeCapitalPayment){
+        public Amortization(int periode, double capitalBeggining, double capitalEnd, double totalPayment, double interestPayment, double capitalPayment, double cumulativeTotalPayment, double cumulativeInterestPayment, double cumulativeCapitalPayment){
             
             this.periode = periode;
-            this.capitalBiggining = capitalBiggining;
+            this.capitalBeggining = capitalBeggining;
             this.capitalEnd = capitalEnd;
             this.capitalPayment = capitalPayment;
             this.totalPayment = totalPayment;
@@ -39,10 +39,10 @@ public class Amortization {
 
 
 	public double getCapitalBiggining() {
-		return capitalBiggining;
+		return capitalBeggining;
 	}
-	public void setCapitalBiggining(double capitalBiggining) {
-		this.capitalBiggining = capitalBiggining;
+	public void setCapitalBeggining(double capitalBeggining) {
+		this.capitalBeggining = capitalBeggining;
 	}
 	public int getPeriode() {
 		return periode;

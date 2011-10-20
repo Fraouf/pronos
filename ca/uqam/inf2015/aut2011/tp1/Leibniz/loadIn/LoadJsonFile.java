@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Cette classe contient la méthode qui charge les fichiers Json et elle enregistre 
+ * les valeurs obtenues dans des variables.
  */
 package loadIn;
 
@@ -13,6 +13,10 @@ import user.User;
  * @author k1fryouf
  */
 public class LoadJsonFile {
+    
+     // Cette méthode  prend en paramétres un Objet de type JsonReader et retourne un
+     // Objet User.
+     // @ JsonReader
     
      public static User load(JsonReader reader) throws IOException {
          
@@ -34,19 +38,19 @@ public class LoadJsonFile {
          
        String name = reader.nextName();
        
-       if (name.equals("amount")) {
+       if (name.equals("amount") || name.equals("montant")) {
          amount = reader.nextDouble();
-       } else if (name.equals("description")) {
+       } else if (name.equals("description") || name.equals("description")) {
          description= reader.nextString();
-       } else if (name.equals("frequencyComposition")) {
+       } else if (name.equals("frequencyComposition") || name.equals("frequenceComposition")) {
          frequencyComposition = reader.nextInt();
-       } else if (name.equals("paymentFrequency")) {
+       } else if (name.equals("paymentFrequency") || name.equals("versementPeriodique")) {
          paymentFrequency = reader.nextInt();
-       } else if (name.equals("duration")) {
+       } else if (name.equals("duration") || name.equals("nombreAnnee")) {
          duration = reader.nextInt();    
-       } else if (name.equals("id")) {
+       } else if (name.equals("id") || name.equals("id")) {
          id = reader.nextString(); 
-       } else if (name.equals("interestRates")) {
+       } else if (name.equals("interestRates") || name.equals("tauxInteret")) {
          interestRates = reader.nextInt();    
        } else {   
          reader.skipValue();
