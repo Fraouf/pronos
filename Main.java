@@ -22,8 +22,10 @@ public class Main {
     public static void main (String[]args){
             
             try{
+                String [] clientFilesJson = scanningFolder.scanningFolderPatch(args[0]);
                 
-                for(int i=0;i<args.length;i++){
+                
+                for(int i=0;i<clientFilesJson;i++){
                     
                     //Lecture des fichiers source .json donné par les arguments du main
                     JsonReader  file = new JsonReader( new FileReader(args[i]));
@@ -35,7 +37,7 @@ public class Main {
                     Calculate.calculateTotalPayment(customer);
                     
                     //sauvegarde des fichiés dans le dossier "extrant"
-                    SaveJsonFile.save(customer);
+                    SaveJsonFile.save(customer,args[1]);
                 }
 
 
