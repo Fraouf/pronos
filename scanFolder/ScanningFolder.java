@@ -20,11 +20,12 @@ public class ScanningFolder
     String nameOfJsonFiles[] = new String [jsonFolder.length];
     
         for(int i=0;i<jsonFolder.length;i++){
+            
         //Inspecte le dossier ou fichier si il est bien et bien un file
             if(jsonFolder[i].isFile()){
 
-                System.out.println("trouver:" + jsonFolder[i].getName());
-                nameOfJsonFiles[i] =  path + "\\" + jsonFolder[i].getName();
+                System.out.println(path +"/"+ jsonFolder[i].getName());
+                nameOfJsonFiles[i] = path + "/" + jsonFolder[i].getName();
                 
             }   
         } 

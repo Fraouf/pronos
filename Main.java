@@ -29,7 +29,7 @@ public class Main {
                 for(int i=0;i<clientFilesJson.length;i++){
                     
                     //Lecture des fichiers source .json donné par les arguments du main
-                    JsonReader  file = new JsonReader( new FileReader(args[i]));
+                    JsonReader  file = new JsonReader( new FileReader(clientFilesJson[i]));
                     
                     //récupération du fichier json de la classe JsonReader
                     User customer  = LoadJsonFile.load(file);
