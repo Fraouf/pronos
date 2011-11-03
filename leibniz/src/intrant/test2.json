@@ -1,0 +1,9 @@
+{
+  "amount" :"100000",
+  "description" : "Quatrieme test",
+  "duration" : "25",
+  "frequencyComposition" : "2",
+  "paymentFrequency" : "12",
+  "id" : "Test 1",
+  "interestRates" : "6"
+}
