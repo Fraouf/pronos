@@ -37,7 +37,7 @@ public class PartieInterface extends JFrame {
     }
 
     //fonction utlise pour redimentionner les images
-    private Image ScaledImage (Image img, int w, int h){
+    private Image scaledImage (Image img, int w, int h){
         BufferedImage resizedImage = new BufferedImage (w,h,BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = resizedImage.createGraphics();
         
@@ -106,9 +106,8 @@ public class PartieInterface extends JFrame {
                 if(grille1.ready()){
                     partieControleur = new PartieControleur();
                     partieControleur.positionnerBateaux(grille1.retourneX(),grille1.retourneY(),grille1.retourneVH());
-                    remove(boiteInstructions);
-                    
-                    //ajouterPanelInfos();
+                    partieInterface.remove(boiteInstructions);
+                    ajouterPanelInfos();
 
                     if(partieControleur.verifierBateaux()){
                         add(grille2);
@@ -260,13 +259,56 @@ public class PartieInterface extends JFrame {
     }   
     
     public void ajouterPanelInfos(){
-        panelInfo1 = new JPanel[5];
-        for(int i=0; i<panelInfo1.length;i++){
-            panelInfo1[i] = new JPanel(new GridLayout());
-            panelInfo1[i].setSize(50, 150);
-            panelInfo1[i].setLocation(20+(i*50), 450);
-        }
+        monPanelInfo = new JPanel[5];
+        monPanelInfo[0] = new JPanel(null);
+        monPanelInfo[0].setSize(50, 150);
+        monPanelInfo[0].setLocation(20+(20*0)+(0*50), 400);
+        JLabel j1 = new JLabel(new ImageIcon(getClass().getResource("/images/icon_porte_avion.png").getPath()));
+        j1.setSize(50,50);
+        j1.setLocation(0,100);
+        monPanelInfo[0].add(j1);
         
+        monPanelInfo[1] = new JPanel(null);
+        monPanelInfo[1].setSize(50, 150);
+        monPanelInfo[1].setLocation(20+(20*1)+(1*50), 400);
+        monPanelInfo[1].add(new JLabel(new ImageIcon(getClass().getResource("/images/icon_croiseur.png").getPath())));
+        
+        monPanelInfo[2] = new JPanel(null);
+        monPanelInfo[2].setSize(50, 150);
+        monPanelInfo[2].setLocation(20+(20*2)+(2*50), 400);
+        monPanelInfo[2].add(new JLabel(new ImageIcon(getClass().getResource("/images/icon_contre_torpilleur.png").getPath())));
+        
+        monPanelInfo[3] = new JPanel(null);
+        monPanelInfo[3].setSize(50, 150);
+        monPanelInfo[3].setLocation(20+(20*3)+(3*50), 400);
+        monPanelInfo[3].add(new JLabel(new ImageIcon(getClass().getResource("/images/icon_soumarin.png").getPath())));
+        
+        monPanelInfo[4] = new JPanel(null);
+        monPanelInfo[4].setSize(50, 150);
+        monPanelInfo[4].setLocation(20+(20*4)+(4*50), 400);
+        JLabel j5 = new JLabel(new ImageIcon(getClass().getResource("/images/icon_torpilleur.png").getPath()));
+        j5.setSize(50,50);
+        j5.setLocation(0,100);
+        JLabel jtxt = new JLabel();
+        jtxt.setSize(10,100);
+        jtxt.setLocation(1,1);
+        jtxt.setText("Torpilleur");
+        jtxt.setBackground(Color.red);
+        monPanelInfo[4].add(jtxt);
+        monPanelInfo[4].add(j5);
+        JPanel panel = new JPanel(new GridLayout());
+        panel.add(new JLabel());
+        panel.add(new JLabel());
+        panel.add(new JLabel());
+        panel.add(new JLabel());
+        monPanelInfo[4].add(panel);
+        
+        add(monPanelInfo[0]);
+        add(monPanelInfo[1]);
+        add(monPanelInfo[2]);
+        add(monPanelInfo[3]);
+        add(monPanelInfo[4]);
+ 
     }
 
     public PartieControleur getPartieControleur() {
@@ -366,8 +408,8 @@ public class PartieInterface extends JFrame {
     private MyJPanel capitain;
     private JLabel bulleCapitain;
     private JLabel boiteInstructions;
-    private JPanel[] panelInfo1;
-    private JPanel[] panelInfo2;
+    private JPanel[] panelInfoAdversaire;
+    private JPanel[] monPanelInfo;
     private JButton buttonQuit;
     private JButton buttonSave;
     private JButton buttonStart;
