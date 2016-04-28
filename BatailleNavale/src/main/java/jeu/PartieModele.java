@@ -5,45 +5,59 @@
  */
 package jeu;
 
-import ia.JoueurIntelligent;
-
 /**
  *
  * @author k1fryouf
  */
 public class PartieModele {
     
-    private final Joueur[] joueurs = new Joueur[2];
+    private final IJoueur joueur1;
+    private final IJoueur joueur2;
+    
+    private final ILogicIA ia;
     
     PartieModele(){
 
-        joueurs[0] = new Joueur("Joueur1",new Grille(10,10));
-        joueurs[1] = new JoueurIntelligent("Ordinateur",new Grille(10,10));
+        ia=new AlgoAleatoire();
+        joueur1 = JoueurFactory.addJoueurHumain("Joueur1",new Grille(10,10));
+        joueur2 = JoueurFactory.addJoueurIntelligent("Ordinateur",new Grille(10,10),ia);
+        
     }
     
     public Reponse verifierCoup(int i,Case c){
-        
-        if(joueurs[i] instanceof JoueurIntelligent){
-            return joueurs[i].verifierCoup(c);
+        if(i==0)
+        {
+            return joueur1.verifierCoup(joueur2.jouerCoup(c));
         }
-        return joueurs[i].verifierCoup(joueurs[1].jouerCoup());
+        else
+        {
+            return joueur2.verifierCoup(joueur1.jouerCoup(c));
+        }
+        
     }
     
     public void positionnerBateaux(int[] x,int[] y, boolean[] p){
-        for(Joueur joueur : joueurs){
-            joueur.positionnerBateaux(x, y, p);
-        }
+        joueur1.positionnerBateaux(x, y, p);
+        joueur2.positionnerBateaux(x, y, p);
     }
     
     public boolean verifierBateaux(){
-        return joueurs[0].verifierBateaux() && joueurs[1].verifierBateaux();
+        return joueur1.verifierBateaux() && joueur2.verifierBateaux();
     }
     
     public boolean coupDejaJoue(int i,Case c){
-        return joueurs[i].coupDejaJoue(c);
+        if(i==0)
+        {
+            return joueur1.coupDejaJoue(c);
+        }
+        else
+        {
+            return joueur2.coupDejaJoue(c);
+        }
+        
     }
     
     public Case dernierCoup(){
-        return joueurs[1].getDernierCoup().getCase();
+        return joueur2.getDernierCoup().getCase();
     }
 }

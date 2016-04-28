@@ -123,6 +123,21 @@ public class PartieInterface extends JFrame {
             }
         });
         
+        buttonSave.addActionListener(new ActionListener() {
+             @Override
+            public void actionPerformed(ActionEvent evt) {
+                partieControleur.sauvegarderPartie();
+            }
+        });
+        
+        buttonQuit.addActionListener(new ActionListener() {
+             @Override
+            public void actionPerformed(ActionEvent evt) {
+                setVisible(false);
+                dispose();
+            }
+        });
+        
         String txt = "<html><font face='Verdana' size='3' color='white'><b> &nbsp &nbsp &nbsp"
                           + " 1. PLACEZ VOS BATEAUX SUR VOTRE GRILLE.<br /><br />"
                           + " &nbsp &nbsp &nbsp 2. TOURNEZ VOS BATEAUX.<br /><br />"
@@ -141,8 +156,6 @@ public class PartieInterface extends JFrame {
         buttonStart.setEnabled(false);
         grille1.desactiver();    
         activer(grille2);
-        
-  
     }     
         private class MyMouseAdapter extends MouseAdapter {
 

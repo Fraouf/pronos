@@ -41,8 +41,4 @@ public class PartieControleur {
     public void sauvegarderPartie(){
         
     }
-    
-    public void quitterPartie(){
-        
-    }
 }
