@@ -88,7 +88,7 @@ import java.util.Random;
         }
         
         public boolean validerCoup(Case ca){
-            boolean dansLaGrille = ca.getX() >= 0 && ca.getY()<10;
+            boolean dansLaGrille = ca.getX() >= 0 && ca.getY()<= 9;
             boolean gaucheOuDroite = (Math.abs(this.c.getX()-ca.getX())==1) && (this.c.getY() == ca.getY());
             boolean hautOuBas = (Math.abs(this.c.getY()-ca.getY())==1) && (this.c.getX() == ca.getX());
             return dansLaGrille && (gaucheOuDroite || hautOuBas);

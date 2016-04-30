@@ -41,4 +41,9 @@ public class PartieControleur {
     public void sauvegarderPartie(){
         
     }
+    
+    public void revoirPartie(PartieInterface partieInterface){
+        
+        partieModele.revoirPartie(partieInterface);
+    }
 }

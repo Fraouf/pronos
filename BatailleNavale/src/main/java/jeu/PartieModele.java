@@ -5,14 +5,23 @@
  */
 package jeu;
 
+import java.awt.Point;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import javax.swing.JPanel;
+
 /**
  *
  * @author k1fryouf
  */
 public class PartieModele {
     
-    private final IJoueur joueur1;
-    private final IJoueur joueur2;
+    final IJoueur joueur1;
+    final IJoueur joueur2;
     
     private final ILogicIA ia;
     
@@ -39,6 +48,12 @@ public class PartieModele {
     public void positionnerBateaux(int[] x,int[] y, boolean[] p){
         joueur1.positionnerBateaux(x, y, p);
         joueur2.positionnerBateaux(x, y, p);
+        for(int i = 0; i < joueur2.getGrille().bateaux.length;i++){
+            System.out.println(joueur2.getGrille().bateaux[i].getType().getNom());
+            for(int j = 0; j< joueur2.getGrille().bateaux[i].getCases().length;j++){
+                System.out.println(joueur2.getGrille().bateaux[i].getCases()[j]);
+            }
+        }
     }
     
     public boolean verifierBateaux(){
@@ -59,5 +74,26 @@ public class PartieModele {
     
     public Case dernierCoup(){
         return joueur2.getDernierCoup().getCase();
+    }
+    
+    public void revoirPartie(PartieInterface partieInterface){
+        
+        for(Map.Entry<Reponse,JPanel> entry : partieInterface.getSequence().entrySet()){
+
+            entry.getValue().removeAll();
+            entry.getValue().repaint();
+            entry.getValue().revalidate();
+            
+        }
+        
+        for(Point p : partieInterface.getPoints()){
+            partieInterface.getGrille1().remove(partieInterface.getGrille1().getComponentAt(p.x+3,p.y+3));
+        }
+        
+        int i = 0;
+        for(Map.Entry<Reponse,JPanel> entry : partieInterface.getSequence().entrySet()){
+            i=i+2;
+            new Replay(partieInterface,entry.getKey(), entry.getValue(),i).starCountDownFromNow();
+        }
     }
 }

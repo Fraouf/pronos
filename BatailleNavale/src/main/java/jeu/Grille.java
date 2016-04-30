@@ -32,7 +32,7 @@ public class Grille {
         for(int i=0;i<bateaux.length;i++){
             for(int j=i+1;j<bateaux.length;j++){
                 for (Case c : bateaux[i].getCases()) {
-                    if (contient(bateaux[j].getCases(), c) || c.getX()<0 || c.getY()>9) {
+                    if (contient(bateaux,bateaux[i], c) || c.getX()<0 || c.getX()>9 || c.getY()<0 || c.getY()>9) {
                         return false;
                     }
                 }
@@ -41,10 +41,14 @@ public class Grille {
         return true;
     }
     
-    public boolean contient (Case[] cases, Case c){
-        for(Case uneCase : cases){
-            if(uneCase.equals(c)){
-                return true;
+    public boolean contient (Bateau[] bateaux,Bateau bateau, Case c){
+        for(Bateau b : bateaux){
+            if(b != bateau){
+                for(Case c2 : b.getCases()){
+                    if(c2.equals(c)){
+                        return true;
+                    }
+                }
             }
         }
         return false;

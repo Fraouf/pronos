@@ -38,18 +38,31 @@ public class CoupAleatoire {
         dernierecase = partieControleur.dernierCoup();
 
         if(coup2.isTouche()){
-
+            
             new ImageAnimee(partieInterface.getGrille1(),"/images/explosion/",new Point((dernierecase.getX()*32)+5,(dernierecase.getY()*32)+5)).startCountDownFromNow();
+            partieInterface.getPoints().add(new Point((dernierecase.getX()*32)+5,(dernierecase.getY()*32)+5));
         }else{
             partieInterface.afficherCoup(coup2, grille1.panelGrid[dernierecase.getY()][dernierecase.getX()]);
         }
+        partieInterface.getSequence().put(coup2,grille1.panelGrid[dernierecase.getY()][dernierecase.getX()]);
         timer.stop();
 
         if(coup2.isTouche()){
+            
+            partieControleur.partieModele.joueur2.setIa(new AlgoProximite());
+            
+            if(coup2.isCoule()){
+                partieControleur.partieModele.joueur2.setIa(new AlgoAleatoire());
+            }
+            
             if(coup2.getGagnant()){
-                partieInterface.afficherMessage(null,"Vous avez perdu !!!");
+                partieInterface.afficherMessage(null,"  Dommage,Vous avez perdu !!!");
                 partieInterface.desactiver(partieInterface.getGrille1());
                 partieInterface.desactiver(partieInterface.getGrille2());
+                partieInterface.getButtonSave().setEnabled(false);     
+                partieInterface.add(partieInterface.getButtonRevoir());
+                partieInterface.repaint();
+                partieInterface.revalidate();
             }else{
                 timer.start();
             }

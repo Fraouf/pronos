@@ -20,8 +20,8 @@ public class AlgoAleatoire implements ILogicIA{
         int x;
         int y;
         do{
-            x = r.nextInt(10);
-            y = r.nextInt(10);
+            x = r.nextInt(9);
+            y = r.nextInt(9);
         }while(coups.contains(x+""+y));
         
         return new Case(x,y);

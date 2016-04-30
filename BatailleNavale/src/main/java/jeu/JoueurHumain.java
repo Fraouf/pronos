@@ -17,7 +17,7 @@ public class JoueurHumain implements IJoueur{
     private Grille grille;
     private Coup dernierCoup;
     
-    protected List<Case> coups=new ArrayList();
+    protected LinkedList<String> coups=new LinkedList();
     
     public JoueurHumain(){
     }
@@ -30,7 +30,7 @@ public class JoueurHumain implements IJoueur{
     
     @Override
     public Reponse verifierCoup(Case c){
-        coups.add(c);
+        coups.add(c.toString());
         dernierCoup.setCase(c);
         return grille.verifierCoup(c);
     }
@@ -83,5 +83,25 @@ public class JoueurHumain implements IJoueur{
     @Override
     public void setDernierCoup(Coup dernierCoup) {
         this.dernierCoup = dernierCoup;
+    }
+
+    @Override
+    public LinkedList<String> getCoups() {
+        return coups;
+    }
+
+    @Override
+    public void setCoups(LinkedList<String> coups) {
+        this.coups = coups;
+    }
+
+    @Override
+    public void setIa(ILogicIA logic) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ILogicIA getIa() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

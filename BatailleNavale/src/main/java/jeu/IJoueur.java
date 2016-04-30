@@ -5,6 +5,8 @@
  */
 package jeu;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Gabriel
@@ -32,4 +34,12 @@ public interface IJoueur {
     public Coup getDernierCoup();
 
     public void setDernierCoup(Coup dernierCoup);
+    
+    public ILogicIA getIa();
+    
+    public void setIa(ILogicIA logic);
+    
+    public LinkedList<String> getCoups();
+    
+    public void setCoups(LinkedList<String> coups);
 }

@@ -35,7 +35,7 @@ public class GrillePanel extends JLayeredPane {
     private static final Dimension LAYERED_PANE_SIZE = new Dimension(WIDTH, HEIGHT);
     private static final Dimension LABEL_SIZE = new Dimension(30, 30);
     private GridLayout gridlayout = new GridLayout(GRID_ROWS, GRID_COLS, GAP, GAP);
-    private JPanel panelPorteBateau = new JPanel();
+    public JPanel panelPorteBateau = new JPanel();
     public JPanel backingPanel = new JPanel();
     public JPanel[][] panelGrid = new JPanel[GRID_ROWS][GRID_COLS];
     private Point[] tableauPoints = {new Point(5,0), new Point(80, 10), new Point(150, 28), new Point(215, 32), new Point(280, 47)};
@@ -340,18 +340,18 @@ public class GrillePanel extends JLayeredPane {
             removeMouseListener(myMouseAdapter);
             removeMouseMotionListener(myMouseAdapter);
         }
+        
+        public void vider(){
+            remove(jLabelPorteAvion);
+            remove(jLabelCroiseur);
+            remove(jLabelContreTorpilleur);
+            remove(jLabelSoumarin);
+            remove(jLabelTorpilleur);
+        }
     @Override
     public void paintComponent(Graphics g){
-    /*
-    g.setColor(Color.black);
-    int uniteX = getWidth()/64;
-    int uniteY = getHeight()/64;
-    for(int i=0; i<64; i++){
-    g.drawLine(uniteX*i, 0, uniteX*i, getHeight());
-    g.drawLine(0, uniteY*i, getWidth(), uniteY*i);
-    */
     super.paintComponent(g);
         g.drawImage(image, 0, 0, null);
-}
+    }
 
 }

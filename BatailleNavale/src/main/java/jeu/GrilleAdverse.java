@@ -16,7 +16,6 @@ package jeu;
  */
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
@@ -68,14 +67,6 @@ public class GrilleAdverse extends JLayeredPane {
 
     @Override
     public void paintComponent(Graphics g) {
-        /*
-         g.setColor(Color.black);
-         int uniteX = getWidth()/64;
-         int uniteY = getHeight()/64;
-         for(int i=0; i<64; i++){
-         g.drawLine(uniteX*i, 0, uniteX*i, getHeight());
-         g.drawLine(0, uniteY*i, getWidth(), uniteY*i);
-         */
         super.paintComponent(g);
         g.drawImage(image, 0, 0, null);
     }

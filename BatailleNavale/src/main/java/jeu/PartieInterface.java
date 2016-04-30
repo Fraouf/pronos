@@ -7,14 +7,16 @@ package jeu;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -55,7 +57,9 @@ public class PartieInterface extends JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents(){
-
+        
+        sequence = new LinkedHashMap();
+        points = new ArrayList();
         setContentPane(new MyJPanel("/images/image_de_fond.jpg"));
         getContentPane().setLayout(null);
         setSize(1000, 600);
@@ -100,19 +104,32 @@ public class PartieInterface extends JFrame {
         buttonStart.setLocation(100,400);
         buttonSave.setLocation(100,460);
         buttonQuit.setLocation(100,520);
+        buttonRevoir = new RoundButton(new ImageIcon(getClass().getResource("/images/image_replay.png").getPath()));
+        buttonRevoir.setSize(100,100);
+        buttonRevoir.setLocation(327,410);
+        buttonRevoir.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buttonRevoirActionPerformed(e);
+                partieControleur.revoirPartie(partieInterface);
+            }
+            
+        });
+        
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
+
                 if(grille1.ready()){
                     partieControleur = new PartieControleur();
                     partieControleur.positionnerBateaux(grille1.retourneX(),grille1.retourneY(),grille1.retourneVH());
                     partieInterface.remove(boiteInstructions);
-                    ajouterPanelInfos();
 
                     if(partieControleur.verifierBateaux()){
                         add(grille2);
                         buttonStartActionPerformed(evt);
-                        
+
                     }else{
                         partieControleur = null;
                         afficherMessage(null,"Vous avez deux bateaux sur la même case !");
@@ -120,6 +137,7 @@ public class PartieInterface extends JFrame {
                     revalidate();
                     repaint();
                 }
+                
             }
         });
         
@@ -156,7 +174,11 @@ public class PartieInterface extends JFrame {
         buttonStart.setEnabled(false);
         grille1.desactiver();    
         activer(grille2);
-    }     
+    }   
+    
+        private void buttonRevoirActionPerformed(ActionEvent evt) {                                         
+        buttonRevoir.setEnabled(false);
+    }    
         private class MyMouseAdapter extends MouseAdapter {
 
         private JPanel clickedPanel = null;
@@ -193,17 +215,19 @@ public class PartieInterface extends JFrame {
                 if(r==-1 || c == -1){
                     
                 }else if (!dejaJoue){
+                    
+                    sequence.put(coup1,droppedPanel);
+                    
                     if(coup1.isTouche()){
+                        
                         afficherCoup(coup1,droppedPanel);
                         afficherMessage(coup1,null);
-             
                     }else{
                         desactiver(grille2);
                         afficherCoup(coup1, droppedPanel);
                         afficherMessage(coup1,null);
 
-                        new CoupAleatoire(coup2,partieControleur, grille1, partieInterface).startCountDownFromNow();
-                            
+                        new CoupAleatoire(coup2,partieControleur, grille1, partieInterface).startCountDownFromNow(); 
                     }
                 }
             }
@@ -251,10 +275,15 @@ public class PartieInterface extends JFrame {
             new MyJPanelEraser(5,capitain,bulleCapitain).startCountDownFromNow();
         }else{
             String msg="";
+            System.out.println(r.getGagnant());
             if(r.getGagnant()){
-                msg = "<html> Vous avez gagné !!!<html>";
+                msg = "<html>  Bravo, Vous avez gagné !!!<html>";
                 desactiver(grille1);
                 desactiver(grille2);
+                buttonSave.setEnabled(false);
+                add(buttonRevoir);
+                repaint();
+                revalidate();
             }else if(r.isCoule()){
                 msg = "<html>"+mots[i]+"! Vous avez coulé le "+r.getNom()+" de l'ennemi.<html>";
             }else{
@@ -265,65 +294,15 @@ public class PartieInterface extends JFrame {
                 }
             }
             message.setText(msg);
+            System.out.println(msg);
+            bulleCapitain.removeAll();
             bulleCapitain.add(message);
             capitain.revalidate();
             capitain.repaint();
+            
         }
     }   
     
-    public void ajouterPanelInfos(){
-        monPanelInfo = new JPanel[5];
-        monPanelInfo[0] = new JPanel(null);
-        monPanelInfo[0].setSize(50, 150);
-        monPanelInfo[0].setLocation(20+(20*0)+(0*50), 400);
-        JLabel j1 = new JLabel(new ImageIcon(getClass().getResource("/images/icon_porte_avion.png").getPath()));
-        j1.setSize(50,50);
-        j1.setLocation(0,100);
-        monPanelInfo[0].add(j1);
-        
-        monPanelInfo[1] = new JPanel(null);
-        monPanelInfo[1].setSize(50, 150);
-        monPanelInfo[1].setLocation(20+(20*1)+(1*50), 400);
-        monPanelInfo[1].add(new JLabel(new ImageIcon(getClass().getResource("/images/icon_croiseur.png").getPath())));
-        
-        monPanelInfo[2] = new JPanel(null);
-        monPanelInfo[2].setSize(50, 150);
-        monPanelInfo[2].setLocation(20+(20*2)+(2*50), 400);
-        monPanelInfo[2].add(new JLabel(new ImageIcon(getClass().getResource("/images/icon_contre_torpilleur.png").getPath())));
-        
-        monPanelInfo[3] = new JPanel(null);
-        monPanelInfo[3].setSize(50, 150);
-        monPanelInfo[3].setLocation(20+(20*3)+(3*50), 400);
-        monPanelInfo[3].add(new JLabel(new ImageIcon(getClass().getResource("/images/icon_soumarin.png").getPath())));
-        
-        monPanelInfo[4] = new JPanel(null);
-        monPanelInfo[4].setSize(50, 150);
-        monPanelInfo[4].setLocation(20+(20*4)+(4*50), 400);
-        JLabel j5 = new JLabel(new ImageIcon(getClass().getResource("/images/icon_torpilleur.png").getPath()));
-        j5.setSize(50,50);
-        j5.setLocation(0,100);
-        JLabel jtxt = new JLabel();
-        jtxt.setSize(10,100);
-        jtxt.setLocation(1,1);
-        jtxt.setText("Torpilleur");
-        jtxt.setBackground(Color.red);
-        monPanelInfo[4].add(jtxt);
-        monPanelInfo[4].add(j5);
-        JPanel panel = new JPanel(new GridLayout());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        monPanelInfo[4].add(panel);
-        
-        add(monPanelInfo[0]);
-        add(monPanelInfo[1]);
-        add(monPanelInfo[2]);
-        add(monPanelInfo[3]);
-        add(monPanelInfo[4]);
- 
-    }
-
     public PartieControleur getPartieControleur() {
         return partieControleur;
     }
@@ -411,23 +390,47 @@ public class PartieInterface extends JFrame {
     public void setMyMouseAdapter(MyMouseAdapter myMouseAdapter) {
         this.myMouseAdapter = myMouseAdapter;
     }
-    
-    
+
+    public RoundButton getButtonRevoir() {
+        return buttonRevoir;
+    }
+
+    public void setButtonRevoir(RoundButton buttonRevoir) {
+        this.buttonRevoir = buttonRevoir;
+    }
+
+    public LinkedHashMap<Reponse, JPanel> getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(LinkedHashMap<Reponse, JPanel> sequence) {
+        this.sequence = sequence;
+    }
+
+    public ArrayList<Point> getPoints() {
+        return points;
+    }
+
+    public void setPoints(ArrayList<Point> points) {
+        this.points = points;
+    }
     
     // Variables declaration - do not modify   
+
     private PartieControleur partieControleur ;
     private GrillePanel grille1;
     private GrilleAdverse grille2;
     private MyJPanel capitain;
     private JLabel bulleCapitain;
     private JLabel boiteInstructions;
-    private JPanel[] panelInfoAdversaire;
-    private JPanel[] monPanelInfo;
     private JButton buttonQuit;
     private JButton buttonSave;
     private JButton buttonStart;
+    private RoundButton buttonRevoir;
     private PartieInterface partieInterface = this;
     private MyMouseAdapter myMouseAdapter;  
+    private LinkedHashMap<Reponse,JPanel> sequence;
+    private ArrayList<Point> points;
     // End of variables declaration   
 }
 

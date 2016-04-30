@@ -42,11 +42,14 @@ public class JoueurIntelligent implements IJoueur{
 
     @Override
     public Case jouerCoup(Case c){
-        c=ia.jouerCoup(coups,dernierCoup);
+        
+        do{
+            c = ia.jouerCoup(coups,dernierCoup);
+        }while(coups.contains(c.toString()));
         
         dernierCoup.setCase(c);
         
-        coups.add(dernierCoup.toString());
+        coups.add(c.toString());
         
         return dernierCoup.getCase();
     }
@@ -101,6 +104,26 @@ public class JoueurIntelligent implements IJoueur{
     @Override
     public void setDernierCoup(Coup dernierCoup) {
         this.dernierCoup = dernierCoup;
+    }
+
+    @Override
+    public LinkedList<String> getCoups() {
+        return coups;
+    }
+
+    @Override
+    public void setCoups(LinkedList<String> coups) {
+        this.coups = coups;
+    }
+
+    @Override
+    public ILogicIA getIa() {
+        return ia;
+    }
+
+    @Override
+    public void setIa(ILogicIA ia) {
+        this.ia = ia;
     }
 }
 
